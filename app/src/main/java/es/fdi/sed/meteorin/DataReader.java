@@ -1,49 +1,68 @@
 package es.fdi.sed.meteorin;
 
-import java.util.Random;
+import com.harrysoft.androidbluetoothserial.BluetoothManager;
+import com.harrysoft.androidbluetoothserial.BluetoothSerialDevice;
+import com.harrysoft.androidbluetoothserial.SimpleBluetoothDeviceInterface;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class DataReader extends Thread
+public class DataReader
 {
-    private boolean _running;
     private final MainActivity MAIN_ACTIVITY;
-    private int _temperature, _humidity;
-    private final Random RNG;
-
-    private final Runnable RUNNABLE = new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            MAIN_ACTIVITY.setData(_temperature, _humidity);
-        }
-    };
+    private final String HC06_MAC = "00:14:03:05:59:38";
+    private SimpleBluetoothDeviceInterface deviceInterface;
 
     public DataReader(MainActivity ma)
     {
-        _running = false;
         MAIN_ACTIVITY = ma;
-        _temperature = 0;
-        _humidity = 0;
-        RNG = new Random();
+
+        BluetoothManager bluetoothManager = BluetoothManager.getInstance();
+        bluetoothManager.openSerialDevice(HC06_MAC)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onConnected, this::onError);
     }
 
-    @Override
-    public void run()
+    private void onConnected(BluetoothSerialDevice connectedDevice)
     {
-        _running = true;
+        // You are now connected to this device!
+        // Here you may want to retain an instance to your device:
+        deviceInterface = connectedDevice.toSimpleDeviceInterface();
 
-        while(_running)
+        // Listen to bluetooth events
+        deviceInterface.setListeners(this::onMessageReceived, this::onMessageSent, this::onError);
+
+        // Let's send a message:
+        //deviceInterface.sendMessage("Hello world!");
+    }
+
+    private void onMessageSent(String message)
+    {
+        // We sent a message! Handle it here.
+        //Toast.makeText(context, "Sent a message! Message was: " + message, Toast.LENGTH_LONG).show(); // Replace context with your context instance.
+    }
+
+    private void onMessageReceived(String message)
+    {
+        // We received a message! Handle it here.
+        String[] splits = message.split("x");
+
+        if(splits.length == 2)
         {
             try
             {
-                _temperature = RNG.nextInt(100);
-                _humidity = RNG.nextInt(100);
-                MAIN_ACTIVITY.runOnUiThread(RUNNABLE);
-                sleep(1000);
+                int temperature = Integer.parseInt(splits[0]);
+                int humidity = Integer.parseInt(splits[1]);
+
+                MAIN_ACTIVITY.setData(temperature, humidity);
             }
-            catch(InterruptedException ignored)
+            catch (NumberFormatException ignored)
             {
             }
         }
+    }
+
+    private void onError(Throwable error)
+    {
     }
 }

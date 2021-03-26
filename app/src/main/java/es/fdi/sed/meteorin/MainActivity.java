@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity
         _humidityGauge = findViewById(R.id.HumidityGauge);
         _humidityText = findViewById(R.id.HumidityText);
 
-        new DataReader(this).start();
+        new DataReader(this);
     }
 
     public void setData(int temperature, int humidity)
