@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Meteo Rin</string>
+    <string name="humidity_percent">Humidity\n %1$d %%</string>
 </resources>
