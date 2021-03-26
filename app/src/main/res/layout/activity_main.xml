@@ -2,7 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
+    <com.timqi.sectorprogressview.ColorfulRingProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/humidity"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:bgColor="#e1e1e1"
+        app:fgColorEnd="#2b41c2"
+        app:fgColorStart="#74dee8"
+        app:percent="75"
+        app:startAngle="0"
+        app:strokeWidth="40dp" />
 
 </LinearLayout>
