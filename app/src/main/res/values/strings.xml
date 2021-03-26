@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Meteo Rin</string>
-    <string name="humidity_percent">Humidity\n %1$d %%</string>
+    <string name="humidity_text">Humidity\n %1$d %%</string>
+    <string name="temperature_text">Temp.\n %1$d ºC</string>
 </resources>

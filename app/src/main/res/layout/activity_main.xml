@@ -10,6 +10,31 @@
         android:layout_height="300dp">
 
         <com.timqi.sectorprogressview.ColorfulRingProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/TemperatureGauge"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:bgColor="#e1e1e1"
+            app:fgColorEnd="#ff4800"
+            app:fgColorStart="#74dee8"
+            app:percent="75"
+            app:startAngle="0"
+            app:strokeWidth="40dp" />
+
+        <TextView
+            android:id="@+id/TemperatureText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+        <com.timqi.sectorprogressview.ColorfulRingProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/HumidityGauge"
             android:layout_width="300dp"
             android:layout_height="300dp"
@@ -26,7 +51,6 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="@string/humidity_percent"
             android:textColor="@color/black"
             android:textSize="40sp" />
     </RelativeLayout>
