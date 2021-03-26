@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity
         _humidityGauge = findViewById(R.id.HumidityGauge);
         _humidityText = findViewById(R.id.HumidityText);
 
-        new DataReader().start();
+        new DataReader(this).start();
     }
 
     public void setData(int temperature, int humidity)
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         _humidityGauge.setPercent(humidity);
 
         String temperatureText = String.format(getResources().getString(R.string.temperature_text), temperature);
-        String humidityText = String.format(getResources().getString(R.string.temperature_text), temperature);
+        String humidityText = String.format(getResources().getString(R.string.humidity_text), humidity);
 
         _temperatureText.setText(temperatureText);
         _humidityText.setText(humidityText);
