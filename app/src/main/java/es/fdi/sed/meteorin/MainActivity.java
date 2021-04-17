@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -36,28 +35,44 @@ public class MainActivity extends AppCompatActivity
 
     public void setData(int temperature, int humidity)
     {
+        updateTemperatureText(temperature);
+        updateHumidityText(humidity);
+        updateLastUpdatedText();
+    }
+
+    private void updateTemperatureText(int temperature)
+    {
         if(temperature < 0)
             temperature = 0;
 
         if(temperature > 100)
             temperature = 100;
 
+        _temperatureGauge.setPercent(temperature);
+
+        String temperatureText = String.format(getResources().getString(R.string.temperature_text), temperature,
+                (int)(temperature * 1.8) + 32, temperature + 273);
+
+        _temperatureText.setText(temperatureText);
+    }
+
+    private void updateHumidityText(int humidity)
+    {
         if(humidity < 0)
             humidity = 0;
 
         if(humidity > 100)
             humidity = 100;
 
-        _temperatureGauge.setPercent(temperature);
         _humidityGauge.setPercent(humidity);
 
-        String temperatureText = String.format(getResources().getString(R.string.temperature_text), temperature,
-                (int)(temperature * 1.8) + 32, temperature + 273);
         String humidityText = String.format(getResources().getString(R.string.humidity_text), humidity);
 
-        _temperatureText.setText(temperatureText);
         _humidityText.setText(humidityText);
+    }
 
+    private void updateLastUpdatedText()
+    {
         String lastUpdated = String.format(getResources().getString(R.string.last_updated_text), _dateFormatter.format(new Date()));
 
         _lastUpdatedText.setText(lastUpdated);
