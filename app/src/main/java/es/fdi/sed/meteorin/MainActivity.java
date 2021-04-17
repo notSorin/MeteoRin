@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity
         _temperatureGauge.setPercent(temperature);
         _humidityGauge.setPercent(humidity);
 
-        String temperatureText = String.format(getResources().getString(R.string.temperature_text), temperature);
+        String temperatureText = String.format(getResources().getString(R.string.temperature_text), temperature,
+                (int)(temperature * 1.8) + 32, temperature + 273);
         String humidityText = String.format(getResources().getString(R.string.humidity_text), humidity);
 
         _temperatureText.setText(temperatureText);
