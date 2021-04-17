@@ -44,7 +44,7 @@ public class DataReader
     // We received a message! Handle it here.
     private void onMessageReceived(String message)
     {
-        String[] splits = message.split("x");
+        String[] splits = message.split(" ");
 
         if(splits.length == 2)
         {
